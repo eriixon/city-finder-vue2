@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1 class="ui dividing centered header">Vue.js Todo App</h1>
+    <finder></finder>
+
     <div class='ui three column centered grid'>
       <div class='column'>
         <todo-list v-bind:todos="todos"></todo-list>
@@ -14,10 +15,13 @@
 import sweetalert from 'sweetalert'
 import TodoList from './components/TodoList'
 import CreateTodo from './components/CreateTodo'
+import Finder from './components/Finder'
+
 export default {
   name: 'app',
   components: {
     TodoList,
+    Finder,
     CreateTodo
   },
   data () {
