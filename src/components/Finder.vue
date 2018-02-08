@@ -1,30 +1,28 @@
 <template>
-    <div class="row" id="spanel">
-        <form class="form" @submit.prevent="sendRequest">
-            <div class="col-md-2 col-md-offset-1">
-                <button class="btn" id="btn-submit"><i class="fas fa-search"></i></button>
-            </div>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-addon">Country</span>
+    <div class="ui container" id="finder-panel">
+        <div class="ui small form" @submit.prevent="sendRequest">
+            <div class="three fields">
+                <div class="field">
                     <select class="form-control" id="select-country" v-model.trim="searchCountry" required>
+                        <option value="" disabled selected>Select county</option>
                         <option v-for="country in countryList" v-bind:key="country">{{country}}</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-addon">City</span>
-                    <input class="form-control" id="select-city" v-model.trim="searchCity" required>
+                <div class="field">
+                    <input placeholder="City/Town" type="text" id="select-city" v-model.trim="searchCity" required>
+                </div>
+                <div class="field">
+                    <div class="ui submit icon fluid button"><i class="search icon"></i></div>
                 </div>
             </div>
-        </form>
+
+        </div>
     </div> 
 </template>
 
 <script type="text/javascript">
 
-import sweetalert from 'sweetalert'
+import VueSwal from 'vue-swal'
 
 export default{
 
@@ -63,8 +61,13 @@ export default{
             popupMessage = {}
             if (message == "loading") popupMessage  = { title: "Loading", text: "We are looking for this city", icon: "info", buttons: false };
             else popupMessage = { title: "Opps", text: message, icon: "error", buttons: false };
-            this.$sweetalert(popupMessage);
+            this.$swal(popupMessage);
         }
     }
 }
 </script>
+<style>
+    #finder-panel {
+        margin-top: 10%;
+    }
+</style>
