@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App'
-import store from './store/store'
+import store from './lib/store'
+import VueFire from 'vuefire'
+Vue.use(VueFire)
 
 Vue.config.productionTip = false
 

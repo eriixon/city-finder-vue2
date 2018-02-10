@@ -1,67 +1,57 @@
 <template>
     <div class="ui container" id="finder-panel">
-        <div class="ui small form" @submit.prevent="sendRequest">
-            <div class="three fields">
-                <div class="field">
-                    <select class="form-control" id="select-country" v-model.trim="searchCountry" required>
+        <form class="ui form " @submit.prevent="sendRequest">
+            <div class="fields">
+                <div class=" field three wide">
+                    <button id="sbtn" class="ui submit icon fluid button positive" type="submit"><i class="search icon"></i></button>
+                </div>
+                <div class="field four wide">
+                    <select v-model.trim="searchCountry" required style="height:37px !important">
                         <option value="" disabled selected>Select county</option>
                         <option v-for="country in countryList" v-bind:key="country">{{country}}</option>
                     </select>
                 </div>
-                <div class="field">
+                <div class="field six wide">
                     <input placeholder="City/Town" type="text" id="select-city" v-model.trim="searchCity" required>
                 </div>
-                <div class="field">
-                    <div class="ui submit icon fluid button"><i class="search icon"></i></div>
-                </div>
             </div>
-
-        </div>
-    </div> 
+        </form >
+    </div>
 </template>
 
 <script type="text/javascript">
+import sweetalert from 'sweetalert'
+import firebase from '../lib/firebase'
 
-import VueSwal from 'vue-swal'
-
-export default{
-
+export default {
   data () {
-    return {
-        searchCountry: '',
-        searchCity:'',
-        countryList: this.$store.state.countries
-    }
+    return { searchCountry: '', searchCity: '', countryList: this.$store.state.america.list }
   },
   methods: {
     sendRequest () {
-        request = {
-            "country": this.searchCountry,
-            "city": this.searchCity.toLowerCase().replace(/\w\S*/g, txt => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); }),
-            "id": this.uuidv4()
-        };
-        this.popupMessage("loading");
-        this.$http.put('/askCityList', request).then(
-            data  => {
-                data.body.forEach(city => store.addCity(city));
-                swal.close();
-            },
-                error => this.popupMessage(error.body)
-            ).bind(this);
-            this.clearRequest();
+      var request = {
+        'country': this.searchCountry,
+        'city': this.searchCity.toLowerCase().replace(/\w\S*/g, txt => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); }),
+        'id': this.uuidv4()
+      };
+      sweetalert({ title: 'Loading', text: 'We are looking for this city', icon: 'info', buttons: false});
+      firebase.askCityList(request, data => {
+        if(data) {
+          if (data.length != 0) {
+            data.forEach(city => this.$store.commit('addCity',city));
+            sweetalert.close();
+          }
+          else sweetalert({ title: "Opps", text: 'Sorry, we can not find this city', icon: "error", buttons: false })
+        }
+      })
+      this.clearRequest();
     },
     uuidv4 () {
-            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(6))
-        },
-    clearRequest (){
-           this.searchCountry = '';
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(6))
+    },
+        clearRequest (){
+            this.searchCountry = '';
             this.searchCity = '';
-        },
-    popupMessage (message){
-            popupMessage = {}
-            if (message == "loading") popupMessage  = { title: "Loading", text: "We are looking for this city", icon: "info", buttons: false };
-            else popupMessage = { title: "Opps", text: message, icon: "error", buttons: false };
-            this.$swal(popupMessage);
         }
     }
 }

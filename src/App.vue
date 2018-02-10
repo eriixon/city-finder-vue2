@@ -1,54 +1,23 @@
 <template>
   <div id="app">
     <finder></finder>
-
-    <div class='ui three column centered grid'>
-      <div class='column'>
-        <todo-list v-bind:todos="todos"></todo-list>
-        <!-- <create-todo v-on:create-todo="createTodo"></create-todo> -->
-      </div>
-    </div>
+    <city-list v-bind:cities="cities"></city-list>
   </div>
 </template>
 
 <script>
 import Finder from './components/Finder'
-// import sweetalert from 'sweetalert'
-import TodoList from './components/TodoList'
-// import CreateTodo from './components/CreateTodo'
+import CityList from './components/CityList'
 
 export default {
   name: 'app',
   components: {
-    TodoList,
     Finder,
-    // CreateTodo
+    CityList
   },
   data () {
     return {
-      todos: [{
-        title: 'Todo A',
-        project: 'Project A',
-        done: false
-      }, {
-        title: 'Todo B',
-        project: 'Project B',
-        done: true
-      }, {
-        title: 'Todo C',
-        project: 'Project C',
-        done: false
-      }, {
-        title: 'Todo D',
-        project: 'Project D',
-        done: false
-      }]
-    }
-  },
-  methods: {
-    createTodo (newTodo) {
-      this.todos.push(newTodo)
-      // sweetalert('Success!', 'To-Do created!', 'success')
+      cities: this.$store.state.cities.list
     }
   }
 }
