@@ -1,18 +1,19 @@
 {
   "name": "cityfinderv2",
-  "version": "1.0.0",
-  "description": "Find a city in North America",
+  "version": "2.1.0",
+  "description": "Find a city in North America v2.1",
   "author": "eriixon <radkovsn@gmail.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "start": "node server.js",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run e2e",
     "lint": "eslint --ext .js,.vue src test/e2e/specs",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "express": "^4.16.2",
     "firebase": "^4.9.1",
     "sweetalert": "^2.1.0",
     "vue": "^2.5.2",
