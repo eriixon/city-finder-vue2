@@ -1,4 +1,4 @@
-# City Finder v2.1.0 with Vue 2
+# City Finder v.2.1.0 with Vue 2
 
 ## Description.
 This light web application can help to find information about a city ot town just by a name. The result will be a single card or several cards for all cities/towns with the current name.
