@@ -29,31 +29,29 @@ export default {
   },
   methods: {
     sendRequest () {
-      var request = {
+      const request = {
         'country': this.searchCountry,
-        'city': this.searchCity.toLowerCase().replace(/\w\S*/g, txt => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); }),
+        'city': this.searchCity.toLowerCase().replace(/\w\S*/g, txt => { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() }),
         'id': this.uuidv4()
-      };
-      sweetalert({ title: 'Loading', text: 'We are looking for this city', icon: 'info', buttons: false});
+      }
+      sweetalert({title: 'Loading', text: 'We are looking for this city', icon: 'info', buttons: false})
       firebase.askCityList(request, data => {
-        if(data) {
-          if (data.length != 0) {
-            data.forEach(city => this.$store.commit('addCity',city));
-            sweetalert.close();
-          }
-          else sweetalert({ title: "Opps", text: 'Sorry, we can not find this city', icon: "error", buttons: false })
+        if (data) {
+          if (data.length !== 0) {
+            data.forEach(city => this.$store.commit('addCity', city))
+            sweetalert.close()
+          } else sweetalert({title: 'Opps', text: 'Sorry, we can not find this city', icon: 'error', buttons: false})
         }
       })
-      this.clearRequest();
+      this.clearRequest()
     },
     uuidv4 () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(6))
     },
-        clearRequest (){
-            this.searchCountry = '';
-            this.searchCity = '';
-        }
+    clearRequest () {
+      [ this.searchCountry, this.searchCity ] = ['', '']
     }
+  }
 }
 </script>
 <style>

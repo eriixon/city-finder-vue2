@@ -9,14 +9,14 @@
 <script type="text/javascript">
 import City from './City'
 export default {
-  props: ["cities"],
+  props: ['cities'],
   components: {
     City
   },
   methods: {
-    deleteCity(city) {
+    deleteCity (city) {
       console.log(city)
-      this.$store.commit('deleteCity',city)
+      this.$store.commit('deleteCity', city)
     }
   }
 }

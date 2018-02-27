@@ -39,13 +39,13 @@
 
 <script type="text/javascript">
 export default {
-  props: ["city"],
+  props: ['city'],
   methods: {
-    deleteCity(city) {
-      this.$emit("delete-city", city);
+    deleteCity (city) {
+      this.$emit('delete-city', city)
     }
   }
-};
+}
 </script>
 <style>
 .cardLink{
