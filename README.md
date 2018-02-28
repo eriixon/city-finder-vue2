@@ -21,6 +21,11 @@ This light web application can help to find information about a city ot town jus
 * Engine - Node JS and NPM 
 
 Also this app uses [Google Maps JS API](https://developers.google.com/maps/documentation/javascript/) to find the current city/tonw on the map and show it in the card.
+## Reference
+
+I developed this project using several frameworks:
+* [City Finder v3.1.0 with Angular](https://github.com/eriixon/city-finder-angular)
+* [City Finder v4.0.0 with React](https://github.com/eriixon/city-finder-react)
 
 ## Build Setup
 
