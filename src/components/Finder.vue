@@ -2,17 +2,17 @@
     <div class="ui container" id="finder-panel">
         <form class="ui form " @submit.prevent="sendRequest">
             <div class="fields">
-                <div class=" field three wide">
-                    <button id="sbtn" class="ui submit icon fluid button positive" type="submit"><i class="search icon"></i></button>
+                <div class=" field four wide">
+                    <button id="sbtn" class="ui submit icon fluid button positive" type="submit" :disabled=isDisabled><i class="search icon"></i></button>
                 </div>
                 <div class="field four wide">
-                    <select v-model.trim="searchCountry" required style="height:37px !important">
+                    <select v-model.trim="searchCountry" style="height:37px !important">
                         <option value="" disabled selected>Select county</option>
                         <option v-for="country in countryList" v-bind:key="country">{{country}}</option>
                     </select>
                 </div>
                 <div class="field six wide">
-                    <input placeholder="City/Town" type="text" id="select-city" v-model.trim="searchCity" required>
+                    <input placeholder="City/Town" type="text" id="select-city" v-model.trim="searchCity">
                 </div>
             </div>
         </form >
@@ -26,6 +26,11 @@ import firebase from '../lib/firebase'
 export default {
   data () {
     return { searchCountry: '', searchCity: '', countryList: this.$store.state.america.list }
+  },
+  computed: {
+    isDisabled () {
+      return (this.searchCountry.length > 0 && this.searchCity.length > 2) === false
+    }
   },
   methods: {
     sendRequest () {

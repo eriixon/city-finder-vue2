@@ -76,8 +76,9 @@ class Firebase {
       for (var p in city) {
         link = (link === '') ? city[p] : `${link}+${city[p]}`
       }
+      let wikiState = `_${city.State.split(' ').join('_')}`
       city.mapLink = `https://www.google.com/maps/embed/v1/place?key=AIzaSyB-V9QUKxnbFAnWr_9UZP6la0neIBYteZ4&q=${link}`
-      city.wiki = `https://en.wikipedia.org/wiki/${city.City},_${city.State}`
+      city.wiki = `https://en.wikipedia.org/wiki/${city.City},${wikiState}`
       city.citydata = `http://www.city-data.com/city/${city.City}-${city.State}.html`
     })
     return cities
